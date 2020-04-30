@@ -11,7 +11,7 @@ class Realtor(models.Model):
     email = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
     seller_of_month = models.BooleanField(default=False)
-    hire_date = models.DateTimeField(datetime.now)
+    hire_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.name
