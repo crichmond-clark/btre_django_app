@@ -12,7 +12,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - db-data/var/lib/postgresql/data/ 
+            - ./db-data/var/lib/postgresql/data/ 
     pgadmin:
         image: dpage/pgadmin4
         restart: always
@@ -23,7 +23,7 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - pg-data/var/lib/pgadmin
+            - ./pg-data/var/lib/pgadmin
         links:
             - "db:pgsql-server"
     web:
