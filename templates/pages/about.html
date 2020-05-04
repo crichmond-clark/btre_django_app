@@ -38,7 +38,7 @@
         <h2>We Search For The Perfect Home</h2>
         <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing
           elit. Sunt, pariatur!</p>
-        <img src="{% static 'images/about.jpg'%}" alt="">
+        <img src="{% static 'images/about.jpg' %}" alt="">
         <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Perspiciatis esse officia repudiandae
           ad saepe ex, amet
@@ -49,7 +49,7 @@
       </div>
       <div class="col-md-4">
         {% if mvps %}
-        {% for mvp in mvps %}
+          {% for mvp in mvps %}
         <div class="card">
           <img class="card-img-top" src="{{ mvp.photo.url }}"
             alt="Seller of the month">
@@ -60,7 +60,7 @@
             </p>
           </div>
         </div>
-        {% endfor %}
+          {% endfor %}
         {% endif %}
 
       </div>
@@ -74,7 +74,7 @@
   <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit
     aperiam, unde aliquid at similique!</h4>
   <hr>
-  <a href="listings.html" class="btn btn-secondary text-white btn-lg">View Our
+  <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Our
     Featured Listings</a>
 </section>
 
@@ -84,7 +84,7 @@
     <h2 class="text-center">Our Team</h2>
     <div class="row text-center">
       {% if realtors %}
-      {% for realtor in realtors %}
+        {% for realtor in realtors %}
       <div class="col-md-4">
         <img src="{{ realtor.photo.url }}" alt="" class="rounded-circle mb-3">
         <h4>{{ realtor.name }}</h4>
@@ -96,7 +96,7 @@
         <p>
           <i class="fas fa-envelope-open"></i> {{ realtor.email }}</p>
       </div>
-      {% endfor %}
+        {% endfor %}
       {% else %}
       <div class="col-md-12">
         <p>No realtors available</p>
