@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% block title%} | Search results {% endblock %}
 {% block content %}
 
 <section id="showcase-inner" class="showcase-search text-white py-5">
   <div class="container">
     <div class="row text-center">
       <div class="col-md-12">
-        <form action="{% url 'search'%}">
+        <form action="{% url 'search' %}">
           <!-- Form Row 1 -->
           <div class="form-row">
             <div class="col-md-4 mb-3">
@@ -28,9 +29,12 @@
                 <option selected="true" disabled="disabled">State (All)</option>
                 {% for k,v in state_choices.items %}
 
-                <option value="{{ k }}" {% if k == values.state %} selected
-                  {% endif %}>
-                  {{ v }}</option>
+                <option value="{{ k }}" 
+                {% if k == values.state %} 
+                  selected
+                {% endif %}>
+                  {{ v }}
+                </option>
                 {% endfor %}
               </select>
             </div>
@@ -43,8 +47,12 @@
                 <option selected="true" disabled="disabled">Bedrooms (Any)
                 </option>
                 {% for k,v in bedroom_choices.items %}
-                <option value="{{ k }}" {% if k == values.bedrooms %} selected
-                  {% endif %}>{{ v }}</option>
+                <option value="{{ k }}" 
+                {% if k == values.bedrooms %} 
+                  selected
+                {% endif %}>
+                  {{ v }}
+                </option>
                 {% endfor %}
               </select>
             </div>
@@ -53,8 +61,12 @@
                 <option selected="true" disabled="disabled">Max Price (All)
                 </option>
                 {% for k,v in price_choices.items %}
-                <option value="{{ k }}" {% if k == values.price %} selected
-                  {% endif %}>{{ v }}</option>
+                <option value="{{ k }}" 
+                {% if k == values.price %} 
+                  selected
+                {% endif %}>
+                  {{ v }}
+                </option>
                 {% endfor %}
               </select>
             </div>

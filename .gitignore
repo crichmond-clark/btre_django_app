@@ -1,0 +1,4 @@
+/.vscode
+/node_modules
+pg-data
+db-data
