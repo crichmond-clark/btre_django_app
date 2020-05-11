@@ -8,10 +8,11 @@ services:
             - POSTGRES_DB=exia
             - POSTGRES_USER=stratos
             - POSTGRES_PASSWORD=kyrios
+            - PGDATA=/var/lib/postgresql/data/ 
         ports:
             - "5432:5432"
         volumes:
-            - db-data:/db-data/var/lib/postgresql/data/ 
+            - ./db-data/var/lib/postgresql/data/ 
     pgadmin:
         image: dpage/pgadmin4
         restart: always
@@ -22,21 +23,20 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - pga-data:/pg-data/var/lib/pgadmin
+            - ./pg-data/var/lib/pgadmin
         links:
             - "db:pgsql-server"
     web:
-        build:
+        build: 
             context: .
-            dockerfile: /docker/dev/python/Dockerfile
+            dockerfile:  
         command: python manage.py runserver 0.0.0.0:8000
         volumes:
-            - .:/web
+            - .:/code
         ports:
             - "8000:8000"
         depends_on:
             - db
 volumes:
     db-data:
-    pga-data:
     pg-data:
