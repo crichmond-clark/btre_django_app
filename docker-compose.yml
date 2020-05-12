@@ -11,24 +11,12 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - db-data:/db-data/var/lib/postgresql/data/ 
-    pgadmin:
-        image: dpage/pgadmin4
-        restart: always
-        environment:
-            PGADMIN_DEFAULT_EMAIL: connor.richmondclark@thekeysupport.com
-            PGADMIN_DEFAULT_PASSWORD: password
-            PGADMIN_LISTEN_PORT: 80
-        ports:
-            - "8080:80"
-        volumes:
-            - pga-data:/pg-data/var/lib/pgadmin
-        links:
-            - "db:pgsql-server"
-    web:
+            - db-data:/db-data/var/lib/postgresql/data/
+    djangoapp:
         build:
             context: .
-            dockerfile: /docker/dev/python/Dockerfile
+            dockerfile: ./DockerfileDev
+        image: djangoapp:dev
         command: python manage.py runserver 0.0.0.0:8000
         volumes:
             - .:/web
@@ -40,3 +28,18 @@ volumes:
     db-data:
     pga-data:
     pg-data:
+
+
+        # pgadmin:
+        #     image: dpage/pgadmin4
+        #     restart: always
+        #     environment:
+        #         PGADMIN_DEFAULT_EMAIL: connor.richmondclark@thekeysupport.com
+        #         PGADMIN_DEFAULT_PASSWORD: password
+        #         PGADMIN_LISTEN_PORT: 80
+        #     ports:
+        #         - "8080:80"
+        #     volumes:
+        #         - pga-data:/pg-data/var/lib/pgadmin
+        #     links:
+        #         - "db:pgsql-server"
