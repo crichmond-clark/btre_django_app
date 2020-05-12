@@ -1,9 +1,9 @@
 FROM python:3
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
-RUN mkdir /static
 WORKDIR /code
 COPY ./base.txt /code
 COPY ./prod.txt /code
 RUN pip install -r prod.txt
 COPY . /code
+RUN mkdir /code/static
