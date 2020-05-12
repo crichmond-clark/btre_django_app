@@ -6,4 +6,4 @@ COPY ./base.txt /code
 COPY ./prod.txt /code
 RUN pip install -r prod.txt
 COPY . /code
-RUN mkdir /code/static
+
