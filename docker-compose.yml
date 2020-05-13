@@ -1,5 +1,9 @@
 version: '3'
-    
+
+volumes:
+    db-data:
+    static: 
+    app:
 services:
     db:
         image: postgres
@@ -11,23 +15,28 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - db-data:/db-data/var/lib/postgresql/data/
-    djangoapp:
-        build:
+            - db-data/db-data/var/lib/postgresql/data/ 
+    app:
+        build: 
             context: .
-            dockerfile: ./DockerfileDev
-        image: djangoapp:dev
-        command: python manage.py runserver 0.0.0.0:8000
+            dockerfile: ./DockerfileProd
+        image: djangoapp:prod
+        command: gunicorn -w 4 btre.wsgi -b 0.0.0.0:8000
         volumes:
-            - .:/web
+            - static:/code/static
         ports:
             - "8000:8000"
         depends_on:
             - db
-volumes:
-    db-data:
-    pga-data:
-    pg-data:
+            - nginx
+    nginx:
+        build:
+            context: .
+            dockerfile: ./DockerfileNGINX
+        ports:
+            - 8080:80
+        volumes:
+            - static:/code/static
 
 
         # pgadmin:
@@ -40,6 +49,6 @@ volumes:
         #     ports:
         #         - "8080:80"
         #     volumes:
-        #         - pga-data:/pg-data/var/lib/pgadmin
+        #         - ./pg-data/var/lib/pgadmin
         #     links:
         #         - "db:pgsql-server"

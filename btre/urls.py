@@ -18,5 +18,5 @@ urlpatterns = [
 ] 
 
 
-
+# url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

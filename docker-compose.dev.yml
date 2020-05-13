@@ -1,5 +1,9 @@
 version: '3'
-    
+
+volumes:
+    db-data:
+    static:
+    app:
 services:
     db:
         image: postgres
@@ -8,39 +12,23 @@ services:
             - POSTGRES_DB=exia
             - POSTGRES_USER=stratos
             - POSTGRES_PASSWORD=kyrios
-            - PGDATA=/var/lib/postgresql/data/ 
         ports:
             - "5432:5432"
         volumes:
-            - ./db-data/var/lib/postgresql/data/ 
-    djangoapp:
-        build: 
-            context: .
-            dockerfile: ./DockerfileProd
-        image: djangoapp:prod
-        command: gunicorn -w 4 btre.wsgi -b 0.0.0.0:8000
-        volumes:
-            - .:/web
+            - db-data:/db-data/var/lib/postgresql/data/
             - static:/static
+    app:
+        build:
+            context: .
+            dockerfile: ./DockerfileDev
+        image: app:dev
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - app:/app
         ports:
             - "8000:8000"
         depends_on:
             - db
-    nginx:
-        build:
-            context: .
-            dockerfile: ./DockerfileNGINX
-        ports:
-            - 8080:80
-        depends_on:
-            - djangoapp
-        volumes:
-            - static:/static
-volumes:
-    db-data:
-    pg-data:
-    static: 
-
 
         # pgadmin:
         #     image: dpage/pgadmin4
@@ -52,6 +40,6 @@ volumes:
         #     ports:
         #         - "8080:80"
         #     volumes:
-        #         - ./pg-data/var/lib/pgadmin
+        #         - pga-data:/pg-data/var/lib/pgadmin
         #     links:
         #         - "db:pgsql-server"
