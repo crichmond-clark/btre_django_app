@@ -15,7 +15,7 @@ urlpatterns = [
     path('contacts/', include('contacts.urls')),
     path('admin/', admin.site.urls),
     url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
